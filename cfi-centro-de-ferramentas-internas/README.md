@@ -13,6 +13,15 @@ Aplicação de demonstração para análise de clientes e faturamento, construí
 
 A comissão de clientes depende de consultas reais a clientes e de regras internas do sistema original. Esses acessos não fazem parte deste repositório. A tela permanece apenas para informar essa limitação: o botão está desativado e as rotas de geração e download também estão bloqueadas. Nenhum relatório de comissão é gerado.
 
+## Apoio de inteligência artificial
+
+O projeto contou com o auxílio de inteligência artificial no desenvolvimento, na revisão de código, nos ajustes da interface e na elaboração da documentação.
+
+A IA também auxiliou na preparação desta versão demonstrativa, incluindo a criação de dados fictícios, a remoção de credenciais e integrações privadas e a desativação da comissão de clientes, que depende de consultas reais ao sistema original.
+
+A inteligência artificial foi utilizada como ferramenta de apoio ao desenvolvimento. A aplicação não utiliza IA durante sua execução; as análises apresentadas são produzidas por regras implementadas em Python.
+
+
 ## Telas da aplicação
 
 Capturas da versão de demonstração, com clientes e valores fictícios.
