@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Diagnóstico de Cliente - INFO CFI</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-purple"></div>
+        <div class="glow glow-magenta"></div>
+        <div class="glow glow-purple-2"></div>
+        <div class="overlay"></div>
+    </div>
+
+
+    <header class="navbar">
+
+        <div class="navbar-brand">
+
+            <div class="logo-mark">
+                <i data-lucide="user"></i>
+            </div>
+
+            <div class="brand-text">
+
+                <span class="brand-name">
+                    INFO CFI
+                </span>
+
+                <span class="brand-subtitle">
+                    Central de ferramentas internas
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <section
+        class="hero"
+        style="padding-top: 48px; padding-bottom: 40px;"
+    >
+
+        <div class="badge">
+            <div class="badge-dot"></div>
+            DIAGNÓSTICO OPERACIONAL
+        </div>
+
+        <h1
+            class="hero-title"
+            style="font-size: 46px;"
+        >
+            Diagnóstico de Cliente
+        </h1>
+
+        <p
+            class="hero-subtitle"
+            style="margin: 0 auto;"
+        >
+            Consulte rapidamente a situação operacional de um cliente.
+        </p>
+
+    </section>
+
+    <main
+        class="tools"
+        style="padding-top: 0;"
+    >
+        {% include 'aviso_demo.html' %}
+
+        <div class="page-container">
+
+
+            <a
+                href="{{ url_for('index') }}"
+                class="back-link"
+            >
+
+                <i
+                    data-lucide="arrow-left"
+                    style="width: 16px; height: 16px;"
+                ></i>
+
+                Voltar para ferramentas
+
+            </a>
+
+            <div
+                id="secao-configuracao-diagnostico"
+                class="card card-featured"
+            >
+
+                <div class="card-header">
+
+                    <h2 class="card-title">
+                        Selecione um cliente
+                    </h2>
+
+                    <p class="card-description">
+                        Escolha um cliente fictício para visualizar o diagnóstico.
+                    </p>
+
+                </div>
+
+
+                <form id="form-diagnostico-cliente">
+
+                    <section
+                        class="form-section"
+                        style="
+                            margin-top: 0;
+                            padding-top: 0;
+                            border-top: none;
+                        "
+                    >
+
+                        <label
+                            class="form-label"
+                            for="input-base-diagnostico"
+                        >
+                            Cliente fictício
+                        </label>
+
+
+                        <select id="input-base-diagnostico" class="form-control">
+                            {% for cliente in clientes_demo %}
+                            <option value="{{ cliente.base }}">{{ cliente.nome }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </section>
+
+
+                    <button
+                        type="submit"
+                        id="btn-executar-diagnostico"
+                        class="btn-primary"
+                        style="margin-top: 32px;"
+                    >
+
+                        <i data-lucide="activity"></i>
+
+                        Executar diagnóstico
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div
+                id="secao-processamento-diagnostico"
+                class="card hidden"
+                style="margin-top: 24px;"
+            >
+
+                <div class="processing-content">
+
+                    <i
+                        data-lucide="loader-circle"
+                        class="processing-icon spin"
+                    ></i>
+
+                    <h3 class="card-title">
+                        Executando diagnóstico
+                    </h3>
+
+                    <p class="processing-note">
+                        Consultando informações do cliente.
+                    </p>
+
+                </div>
+
+
+                <div class="process-info-grid">
+
+                    <div class="process-info-item">
+
+                        <span class="process-info-label">
+                            Base
+                        </span>
+
+                        <span
+                            class="process-info-value"
+                            id="processamento-base-diagnostico"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="process-info-item">
+
+                        <span class="process-info-label">
+                            Status
+                        </span>
+
+                        <span
+                            class="process-info-value"
+                            id="processamento-status-diagnostico"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                id="secao-resultado-diagnostico"
+                class="card hidden"
+                style="margin-top: 24px;"
+            >
+
+
+                <div class="result-header">
+
+                    <span class="result-period">
+                        DIAGNÓSTICO DO CLIENTE
+                    </span>
+
+                    <h2
+                        class="result-company-name"
+                        id="resultado-nome-cliente"
+                    >
+                        —
+                    </h2>
+
+                    <p
+                        class="result-period"
+                        id="resultado-base-cliente"
+                    >
+                        —
+                    </p>
+
+                </div>
+
+                <div class="diagnostico-grid">
+
+
+                    <!-- ÚLTIMO PEDIDO -->
+
+                    <div class="stat-card">
+
+                        <span class="stat-icon">
+                            <i data-lucide="shopping-cart"></i>
+                        </span>
+
+                        <div class="stat-body">
+
+                            <span class="stat-label">
+                                Último pedido recebido
+                            </span>
+
+                            <span
+                                class="stat-value diagnostico-value"
+                                id="resultado-ultimo-pedido"
+                            >
+                                —
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ÚLTIMA NF -->
+
+                    <div class="stat-card">
+
+                        <span class="stat-icon">
+                            <i data-lucide="file-text"></i>
+                        </span>
+
+                        <div class="stat-body">
+
+                            <span class="stat-label">
+                                Última NF emitida
+                            </span>
+
+                            <span
+                                class="stat-value diagnostico-value"
+                                id="resultado-ultima-nf"
+                            >
+                                —
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PEDIDOS HOJE -->
+
+                    <div class="stat-card">
+
+                        <span class="stat-icon">
+                            <i data-lucide="calendar-check"></i>
+                        </span>
+
+                        <div class="stat-body">
+
+                            <span class="stat-label">
+                                Pedidos hoje
+                            </span>
+
+                            <span
+                                class="stat-value"
+                                id="resultado-pedidos-hoje"
+                            >
+                                —
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PENDÊNCIAS -->
+
+                    <div class="stat-card">
+
+                        <span class="stat-icon">
+                            <i data-lucide="triangle-alert"></i>
+                        </span>
+
+                        <div class="stat-body">
+
+                            <span class="stat-label">
+                                Pedidos com pendência
+                            </span>
+
+                            <span
+                                class="stat-value"
+                                id="resultado-pendencias"
+                            >
+                                —
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ESTOQUE -->
+
+                    <div class="stat-card">
+
+                        <span class="stat-icon">
+                            <i data-lucide="package-x"></i>
+                        </span>
+
+                        <div class="stat-body">
+
+                            <span class="stat-label">
+                                Estoque
+                            </span>
+
+                            <span
+                                class="diagnostico-status"
+                                id="resultado-estoque"
+                            >
+                                —
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ÚLTIMA MOVIMENTAÇÃO -->
+
+                    <div class="stat-card">
+
+                        <span class="stat-icon">
+                            <i data-lucide="clock-3"></i>
+                        </span>
+
+                        <div class="stat-body">
+
+                            <span class="stat-label">
+                                Última movimentação
+                            </span>
+
+                            <span
+                                class="stat-value diagnostico-value"
+                                id="resultado-ultima-movimentacao"
+                            >
+                                —
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="result-actions">
+
+                    <button
+                        type="button"
+                        id="btn-nova-consulta-diagnostico"
+                        class="btn-outline"
+                    >
+
+                        <i data-lucide="rotate-ccw"></i>
+
+                        Nova consulta
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script
+        src="{{ url_for('static', filename='js/diagnostico_cliente.js') }}"
+    ></script>
+
+</body>
+
+</html>

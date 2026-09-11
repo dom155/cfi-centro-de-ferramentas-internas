@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comissão de Clientes - INFO CFI</title>
+    <!-- Referência ao CSS global existente -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+<body>
+    <!-- Background Ambiente -->
+    <div class="background">
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-purple"></div>
+        <div class="glow glow-magenta"></div>
+        <div class="glow glow-purple-2"></div>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="navbar-brand">
+            <div class="logo-mark">
+                <i data-lucide="wallet-cards"></i>
+            </div>
+            <div class="brand-text">
+                <span class="brand-name">INFO CFI</span>
+                <span class="brand-subtitle">Central de ferramentas internas</span>
+            </div>
+        </div>
+       
+    </header>
+
+    <!-- Cabeçalho / Hero -->
+    <section class="hero" style="padding-top: 48px; padding-bottom: 40px;">
+        <div class="badge">
+            <div class="badge-dot"></div>
+            INDISPONÍVEL NESTA VERSÃO
+        </div>
+        <h1 class="hero-title" style="font-size: 46px;">Comissão de Clientes</h1>
+        <p class="hero-subtitle" style="margin: 0 auto;">A geração e o download de comissões estão desativados na versão pública.</p>
+    </section>
+
+    <!-- Layout Principal -->
+    <main class="tools" style="padding-top: 0;">
+        {% include 'aviso_demo.html' %}
+        <div class="page-container">
+            
+            <a href="{{ url_for('index') }}" class="back-link">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Voltar para ferramentas
+            </a>
+            
+            <section class="card card-featured" aria-labelledby="comissao-status">
+                <h2 id="comissao-status" class="card-title">Comissão de clientes desativada</h2>
+                <p class="card-description">No sistema original, a apuração utiliza consultas às bases dos clientes e regras comerciais específicas. Essas fontes e informações não fazem parte desta versão pública.</p>
+                <p class="card-description">Este módulo foi mantido como referência do projeto. A geração de relatórios e os downloads estão indisponíveis.</p>
+                <button type="button" class="btn-primary" disabled aria-disabled="true" style="opacity: 0.55; cursor: not-allowed; margin-top: 24px;">
+                    Geração de relatório indisponível
+                </button>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Script Global -->
+     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

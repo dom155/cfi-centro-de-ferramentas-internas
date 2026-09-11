@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Clientes - INFO CFI</title>
+    <!-- Referência ao CSS global existente -->
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}"
+>
+</head>
+<body>
+    <!-- Background Ambiente -->
+    <div class="background">
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-purple"></div>
+        <div class="glow glow-magenta"></div>
+        <div class="glow glow-purple-2"></div>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="navbar-brand">
+            <div class="logo-mark">
+                <i data-lucide="users"></i>
+            </div>
+            <div class="brand-text">
+                <span class="brand-name">INFO CFI</span>
+                <span class="brand-subtitle">Central de ferramentas internas</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cabeçalho / Hero -->
+    <section class="hero" style="padding-top: 48px; padding-bottom: 40px;">
+        <div class="badge">
+            <div class="badge-dot"></div>
+            CONSULTA INDIVIDUAL
+        </div>
+        <h1 class="hero-title" style="font-size: 46px;">Análise de Clientes</h1>
+        <p class="hero-subtitle" style="margin: 0 auto;">Consulte o desempenho de um cliente em um período específico.</p>
+    </section>
+
+    <!-- Layout Principal -->
+    <main class="tools" style="padding-top: 0;">
+        {% include 'aviso_demo.html' %}
+        <div class="page-container">
+
+            <a href="{{ url_for('index') }}" class="back-link">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Voltar para ferramentas
+            </a>
+
+            <!-- Interface de Configuração -->
+            <div id="secao-configuracao" class="card card-featured">
+                <div class="card-header" style="margin-bottom: 24px;">
+                    <h2 class="card-title" style="font-size: 24px;">Configuração da análise</h2>
+                    <p class="card-description">Escolha um cliente fictício e o período que deseja analisar.</p>
+                </div>
+
+                <form id="form-analise-clientes" onsubmit="event.preventDefault();">
+
+                    <!-- BASE DO CLIENTE -->
+                    <section class="form-section">
+                        <label class="form-label" for="input-base-analise">Cliente fictício</label>
+                        <span class="form-desc">Escolha um cliente da demonstração.</span>
+
+                        <select id="input-base-analise" class="form-control">
+                            {% for cliente in clientes_demo %}
+                            <option value="{{ cliente.base }}">{{ cliente.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </section>
+
+                    <!-- PERÍODO -->
+                    <section class="form-section">
+                        <label class="form-label">Período da análise</label>
+                        <span class="form-desc">Selecione o mês e o ano que deseja consultar.</span>
+
+                        <div class="client-grid">
+                            <div>
+                                <label for="select-mes-analise" style="display: none;">Mês</label>
+                                <select id="select-mes-analise" class="form-control" style="width: 100%;">
+                                    <option value="1">Janeiro</option>
+                                    <option value="2">Fevereiro</option>
+                                    <option value="3">Março</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Maio</option>
+                                    <option value="6">Junho</option>
+                                    <option value="7">Julho</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Setembro</option>
+                                    <option value="10">Outubro</option>
+                                    <option value="11">Novembro</option>
+                                    <option value="12">Dezembro</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="select-ano-analise" style="display: none;">Ano</label>
+                                <select id="select-ano-analise" class="form-control" style="width: 100%;">
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <button type="button" id="btn-analisar-cliente" class="btn-primary">
+                        <i data-lucide="search" style="width: 18px; height: 18px;"></i> Analisar cliente
+                    </button>
+                </form>
+            </div>
+
+            <!-- Estado de Processamento (Oculto) -->
+            <div id="secao-processamento-analise" class="card hidden" style="margin-top: 24px;">
+                <div class="processing-content">
+                    <i data-lucide="loader-circle" class="processing-icon spin"></i>
+                    <h3 class="card-title">Analisando cliente...</h3>
+                    <p class="card-description" style="margin-bottom: 0;">
+                        Consultando <strong id="processamento-base-nome"></strong>
+                    </p>
+                    <p class="processing-note">Aguarde enquanto buscamos as informações do cliente.</p>
+                </div>
+            </div>
+
+            <!-- Área de Resultado (Oculta) -->
+            <div id="secao-resultado-analise" class="card hidden" style="margin-top: 24px;">
+
+                <div class="result-header">
+                    <h2 class="result-company-name" id="resultado-nome-empresa">—</h2>
+                    <p class="result-period" id="resultado-periodo">—</p>
+                </div>
+
+                <div class="indicators-grid">
+                    <div class="indicator-card">
+                        <span class="indicator-label">Faturamento do mês</span>
+                        <span class="indicator-value" id="resultado-faturamento-atual">—</span>
+                    </div>
+
+                    <div class="indicator-card">
+                        <span class="indicator-label">Pedidos no período</span>
+                        <span class="indicator-value" id="resultado-pedidos">—</span>
+                    </div>
+
+                    <div class="indicator-card">
+                        <span class="indicator-label">Faturamento mês anterior</span>
+                        <span class="indicator-value" id="resultado-faturamento-anterior">—</span>
+                    </div>
+
+                    <div class="indicator-card">
+                        <span class="indicator-label">Variação em R$</span>
+                        <span class="indicator-value" id="resultado-variacao">—</span>
+                    </div>
+                </div>
+
+                <div class="situacao-box" id="resultado-situacao">
+                    <i data-lucide="minus" class="situacao-icon" id="situacao-icone"></i>
+                    <div class="situacao-content">
+                        <span class="situacao-label">Situação</span>
+                        <span class="situacao-valor" id="situacao-valor">—</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 0;">
+                    <span class="card-icon" aria-hidden="true">
+                        <i data-lucide="brain-circuit"></i>
+                    </span>
+                    <h3 class="card-title">Análise</h3>
+                    <p class="card-description" id="resultado-analise-principal">—</p>
+                    <p class="card-description" id="resultado-analise-secundaria" style="margin-bottom: 0;">—</p>
+                </div>
+
+                <div class="result-actions">
+                    <button type="button" id="btn-baixar-analise" class="btn-outline">
+                        <i data-lucide="download" style="width: 16px; height: 16px;"></i> Baixar planilha
+                    </button>
+                    <button type="button" id="btn-nova-analise" class="btn-outline">
+                        <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;"></i> Nova análise
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Script Global -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+<script
+    src="{{ url_for('static', filename='js/analise_clientes.js') }}"
+></script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faturamento - INFO CFI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Background Ambiente -->
+    <div class="background">
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-purple"></div>
+        <div class="glow glow-magenta"></div>
+        <div class="glow glow-purple-2"></div>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="navbar-brand">
+            <div class="logo-mark">
+                <i data-lucide="chart-no-axes-combined"></i>
+            </div>
+            <div class="brand-text">
+                <span class="brand-name">INFO CFI</span>
+                <span class="brand-subtitle">Central de ferramentas internas</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cabeçalho / Hero -->
+    <section class="hero" style="padding-top: 48px; padding-bottom: 40px;">
+        <div class="badge">
+            <div class="badge-dot"></div>
+            CONSULTA GERAL
+        </div>
+        <h1 class="hero-title" style="font-size: 46px;">Faturamento</h1>
+        <p class="hero-subtitle" style="margin: 0 auto;">Consulte o faturamento escolhendo o período desejado.</p>
+    </section>
+
+    <!-- Layout Principal -->
+    <main class="tools" style="padding-top: 0;">
+        {% include 'aviso_demo.html' %}
+        <div class="page-container">
+
+            <a href="{{ url_for('index') }}" class="back-link">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Voltar para ferramentas
+            </a>
+
+            <!-- Interface de Configuração -->
+            <div id="secao-configuracao-faturamento" class="card card-featured">
+                <div class="card-header" style="margin-bottom: 24px;">
+                    <h2 class="card-title" style="font-size: 24px;">Monte o período</h2>
+                    <p class="card-description">Informe o mês e o ano inicial e final que deseja consultar.</p>
+                </div>
+
+                <form id="form-faturamento">
+
+                    <div class="periods-wrapper">
+
+                        <!-- PERÍODO INICIAL -->
+                        <div class="period-block">
+                            <span class="period-title">Período inicial</span>
+
+                            <div class="client-grid">
+                                <div>
+                                    <label for="select-mes-inicial-faturamento" style="display: none;">Mês inicial</label>
+                                    <select id="select-mes-inicial-faturamento" class="form-control" style="width: 100%;">
+                                        <option value="1">Janeiro</option>
+                                        <option value="2">Fevereiro</option>
+                                        <option value="3">Março</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Maio</option>
+                                        <option value="6">Junho</option>
+                                        <option value="7">Julho</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Setembro</option>
+                                        <option value="10">Outubro</option>
+                                        <option value="11">Novembro</option>
+                                        <option value="12">Dezembro</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="select-ano-inicial-faturamento" style="display: none;">Ano inicial</label>
+                                    <select id="select-ano-inicial-faturamento" class="form-control" style="width: 100%;">
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PERÍODO FINAL -->
+                        <div class="period-block">
+                            <span class="period-title">Período final</span>
+
+                            <div class="client-grid">
+                                <div>
+                                    <label for="select-mes-final-faturamento" style="display: none;">Mês final</label>
+                                    <select id="select-mes-final-faturamento" class="form-control" style="width: 100%;">
+                                        <option value="1">Janeiro</option>
+                                        <option value="2">Fevereiro</option>
+                                        <option value="3">Março</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Maio</option>
+                                        <option value="6">Junho</option>
+                                        <option value="7">Julho</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Setembro</option>
+                                        <option value="10">Outubro</option>
+                                        <option value="11">Novembro</option>
+                                        <option value="12">Dezembro</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="select-ano-final-faturamento" style="display: none;">Ano final</label>
+                                    <select id="select-ano-final-faturamento" class="form-control" style="width: 100%;">
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button type="button" id="btn-consultar-faturamento" class="btn-primary" style="margin-top: 32px;">
+                        <i data-lucide="search" style="width: 18px; height: 18px;"></i> Consultar faturamento
+                    </button>
+                </form>
+            </div>
+
+            <!-- Estado de Processamento (Oculto) -->
+            <div id="secao-processamento-faturamento" class="card hidden" style="margin-top: 24px;">
+                <div class="processing-content">
+                    <i data-lucide="loader-circle" class="processing-icon spin"></i>
+                    <h3 class="card-title">Consultando faturamento...</h3>
+                    <p class="card-description" style="margin-bottom: 0;">Processando as bases do período selecionado.</p>
+                    <p class="processing-note">Aguarde 20 minutos.</p>
+                </div>
+            </div>
+
+            <!-- Área de Resultado (Oculta) -->
+            <div id="secao-resultado-faturamento" class="card hidden" style="margin-top: 24px;">
+
+                <div class="result-header">
+                    <h2 class="result-company-name">FATURAMENTO</h2>
+                    <p class="result-period" id="resultado-periodo-faturamento">—</p>
+                </div>
+
+                <!-- Indicadores 2x2 -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-icon"><i data-lucide="banknote"></i></span>
+                        <div class="stat-body">
+                            <span class="stat-label">Faturamento total</span>
+                            <span class="stat-value" id="resultado-faturamento-total">—</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-icon"><i data-lucide="receipt-text"></i></span>
+                        <div class="stat-body">
+                            <span class="stat-label">OCs faturadas</span>
+                            <span class="stat-value" id="resultado-ocs-faturadas">—</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-icon"><i data-lucide="circle-check"></i></span>
+                        <div class="stat-body">
+                            <span class="stat-label">Bases com faturamento</span>
+                            <span class="stat-value" id="resultado-bases-com-faturamento">—</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-icon"><i data-lucide="circle-minus"></i></span>
+                        <div class="stat-body">
+                            <span class="stat-label">Bases sem faturamento</span>
+                            <span class="stat-value" id="resultado-bases-sem-faturamento">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Faturamento Mensal -->
+                <section class="table-section">
+                    <h3 class="table-section-title">Faturamento mensal</h3>
+                    <p class="table-section-desc">Detalhamento mês a mês do período consultado.</p>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mês</th>
+                                    <th class="is-numeric">OCs faturadas</th>
+                                    <th class="is-numeric">Faturamento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-faturamento-mensal">
+                                <!-- Linhas geradas via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Ranking de Faturamento -->
+                <section class="table-section">
+                    <h3 class="table-section-title">Ranking de faturamento</h3>
+                    <p class="table-section-desc">Top 5 clientes com maior faturamento no período.</p>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cliente/Base</th>
+                                    <th class="is-numeric">OCs faturadas</th>
+                                    <th class="is-numeric">Faturamento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-ranking-faturamento">
+                                <!-- Linhas geradas via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <div class="result-actions">
+                    <button type="button" id="btn-baixar-faturamento" class="btn-outline">
+                        <i data-lucide="download" style="width: 16px; height: 16px;"></i> Baixar planilha
+                    </button>
+                    <button type="button" id="btn-nova-consulta-faturamento" class="btn-outline">
+                        <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;"></i> Nova consulta
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Script Global -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="{{ url_for('static', filename='js/faturamento.js') }}"></script>
+</body>
+</html>

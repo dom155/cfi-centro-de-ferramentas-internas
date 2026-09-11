@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFO CFI - Central de ferramentas internas</title>
+    <meta name="description" content="Central de ferramentas internas para automações e processos do dia a dia.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <div class="background" aria-hidden="true">
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-purple"></div>
+        <div class="glow glow-magenta"></div>
+        <div class="glow glow-purple-2"></div>
+        <div class="overlay"></div>
+    </div>
+
+    <header class="navbar">
+        <div class="navbar-brand">
+            <span class="logo-mark" aria-hidden="true">
+                <i data-lucide="hexagon"></i>
+            </span>
+            <div class="brand-text">
+                <span class="brand-name">INFO CFI</span>
+                <span class="brand-subtitle">Central de Ferramentas Internas</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% include 'aviso_demo.html' %}
+
+        <section class="hero">
+            <span class="badge">
+                <span class="badge-dot" aria-hidden="true"></span>
+                PROJETO DE PORTFÓLIO
+            </span>
+        </section>
+
+        <section class="tools" aria-labelledby="tools-heading">
+            <div class="tools-header">
+                <h2 id="tools-heading">Ferramentas</h2>
+            </div>
+
+            <div class="tools-grid">
+
+                <article class="card card-featured">
+                    <div class="card-glow" aria-hidden="true"></div>
+                    <div class="card-top">
+                        <span class="card-icon card-icon-featured" aria-hidden="true">
+                            <i data-lucide="wallet-cards"></i>
+                        </span>
+                    </div>
+
+                    <h3 class="card-title">Comissão de Clientes</h3>
+                    <p class="card-description">Indisponível nesta versão pública. O módulo original depende de consultas às bases dos clientes e regras comerciais específicas.</p>
+
+                    <a href="{{ url_for('comissao') }}" class="back-link">
+                        <span>Entenda a indisponibilidade</span>
+                        <i data-lucide="arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+                <article class="card">
+                    <span class="card-icon" aria-hidden="true">
+                        <i data-lucide="users"></i>
+                    </span>
+                    <h3 class="card-title">Análise Clientes</h3>
+                    <p class="card-description">Consulte e analise informações dos clientes.</p>
+                    <a href="{{ url_for('analise_clientes') }}" class="back-link">
+                        <span>Abrir ferramenta</span>
+                        <i data-lucide="arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+                <article class="card">
+                    <span class="card-icon" aria-hidden="true">
+                        <i data-lucide="user"></i>
+                    </span>
+                    <h3 class="card-title">Diagnóstico de Cliente</h3>
+                    <p class="card-description">Faça um check-up de forma rápida do cliente.</p>
+                    <a href="{{ url_for('diagnostico_cliente') }}" class="back-link">
+                        <span>Abrir ferramenta</span>
+                        <i data-lucide="arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+                <article class="card">
+                    <span class="card-icon" aria-hidden="true">
+                        <i data-lucide="chart-no-axes-combined"></i>
+                    </span>
+                    <h3 class="card-title">Faturamento</h3>
+                    <p class="card-description">Consulte o faturamento dos últimos meses ou escolha um período personalizado.</p>
+                    <a href="{{ url_for('faturamento') }}" class="back-link">
+                        <span>Abrir ferramenta</span>
+                        <i data-lucide="arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <span>INFO CFI • Portfólio</span>
+        <span class="footer-version">v2.0 demo</span>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+
+</body>
+
+</html>
